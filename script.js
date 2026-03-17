@@ -15,7 +15,7 @@ const botoes = {
   'btn-confirmar': {
     titulo: 'Confirmar presença',
     tipo: 'link',
-    url: 'https://forms.gle/', // ← substitua pelo link do Google Forms
+    url: 'https://wa.me/555192906115?text=Pode%20confirmar%20minha%20presen%C3%A7a%20no%20seu%20casamento!%20%F0%9F%A4%A9'
   },
 
   'btn-presente': {
