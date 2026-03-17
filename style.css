@@ -1,0 +1,214 @@
+/* ─────────────────────────────────────────
+   Reset & base
+───────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+/* ─────────────────────────────────────────
+   Wrapper externo — sempre 100% da largura
+───────────────────────────────────────── */
+.convite-wrapper {
+  width: 100%;
+}
+
+/* ─────────────────────────────────────────
+   Container — mantém proporção 1080×3200
+───────────────────────────────────────── */
+.convite-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1080 / 3200;
+}
+
+/* ─────────────────────────────────────────
+   SVG / imagem do convite
+───────────────────────────────────────── */
+.convite-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* ─────────────────────────────────────────
+   Overlay que cobre o convite inteiro
+───────────────────────────────────────── */
+.botoes-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none; /* o overlay em si não captura eventos… */
+}
+
+/* ─────────────────────────────────────────
+   Hotspots (botões invisíveis sobre o SVG)
+───────────────────────────────────────── */
+.btn-hotspot {
+  position: absolute;
+  background: transparent;
+  border: none;
+  border-radius: 50%; /* ajuste para 8px se os botões forem retangulares */
+  cursor: pointer;
+  pointer-events: all; /* …mas cada botão sim */
+
+  /* Feedback visual sutil no hover */
+  transition: background 0.2s ease, transform 0.15s ease;
+  outline: none;
+}
+
+.btn-hotspot:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: scale(1.08);
+}
+
+.btn-hotspot:active {
+  background: rgba(255, 255, 255, 0.28);
+  transform: scale(0.97);
+}
+
+/* Tooltip no hover */
+.btn-hotspot::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.78);
+  color: #fff;
+  font-family: sans-serif;
+  font-size: 11px;
+  white-space: nowrap;
+  padding: 4px 10px;
+  border-radius: 6px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.btn-hotspot:hover::after {
+  opacity: 1;
+}
+
+/* ─────────────────────────────────────────
+   Modal — overlay
+───────────────────────────────────────── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(160, 115, 85, 0.18);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+}
+
+.modal-overlay.aberto {
+  display: flex;
+}
+
+/* ─────────────────────────────────────────
+   Modal — caixa de conteúdo
+───────────────────────────────────────── */
+.modal-box {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 40px 32px 32px;
+  width: 100%;
+  max-width: 360px;
+  position: relative;
+  box-shadow:
+    0 8px 32px rgba(160, 115, 85, 0.18),
+    0 2px 8px  rgba(160, 115, 85, 0.10);
+  animation: modalEntrar 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border-top: 3px solid #a07355;
+}
+
+@keyframes modalEntrar {
+  from { opacity: 0; transform: translateY(24px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+
+/* ─────────────────────────────────────────
+   Botão fechar — decorado
+───────────────────────────────────────── */
+.modal-fechar {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: 1.5px solid #d4b89a;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #a07355;
+  font-size: 13px;
+  line-height: 1;
+  padding: 0;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+
+.modal-fechar:hover {
+  background: #a07355;
+  border-color: #a07355;
+  color: #ffffff;
+  transform: rotate(90deg);
+}
+
+/* ─────────────────────────────────────────
+   Título e separador decorativo
+───────────────────────────────────────── */
+#modal-titulo {
+  font-family: 'Forum', 'Georgia', serif;
+  font-size: 40px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  margin-bottom: 16px;
+  color: #a07355;
+  text-align: center;
+}
+
+#modal-titulo::after {
+  content: '';
+  display: block;
+  width: 36px;
+  height: 1.5px;
+  background: #d4b89a;
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+/* ─────────────────────────────────────────
+   Conteúdo do modal
+───────────────────────────────────────── */
+#modal-conteudo {
+  font-family: 'Forum', 'Georgia', serif;
+  font-size: 30px;
+  color: #a07355;
+  line-height: 1.7;
+  text-align: center;
+}
+
+#modal-conteudo a {
+  color: #a07355;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+#modal-conteudo a:hover {
+  opacity: 0.75;
+}
