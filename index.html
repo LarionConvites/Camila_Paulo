@@ -1,26 +1,92 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<style>
-body{
-margin:0;
-}
-
-img{
-width:100%;
-display:block;
-}
-
-</style>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Convite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Forum&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<img src="teste.svg">
+  <div class="convite-wrapper">
+    <div class="convite-container">
 
+      <img src="base.svg" alt="Convite" class="convite-svg" id="convite-img">
+
+      <div class="botoes-overlay">
+
+        <!-- Botão 1: Localização -->
+        <button
+          class="btn-hotspot"
+          id="btn-localizacao"
+          style="
+            left:   10.0000%;
+            top:    74.9000%;
+            width:  calc(112 / 1080 * 100%);
+            height: calc(112 / 3200 * 100%);
+          "
+          aria-label="Localização"
+          data-tooltip="Localização"
+        ></button>
+
+        <!-- Botão 2: Confirmar presença -->
+        <button
+          class="btn-hotspot"
+          id="btn-confirmar"
+          style="
+            left:   32.2500%;
+            top:    74.9000%;
+            width:  calc(112 / 1080 * 100%);
+            height: calc(112 / 3200 * 100%);
+          "
+          aria-label="Confirmar presença"
+          data-tooltip="Confirmar presença"
+        ></button>
+
+        <!-- Botão 3: Sugestão de presente -->
+        <button
+          class="btn-hotspot"
+          id="btn-presente"
+          style="
+            left:   54.5000%;
+            top:    74.9000%;
+            width:  calc(112 / 1080 * 100%);
+            height: calc(112 / 3200 * 100%);
+          "
+          aria-label="Sugestão de presente"
+          data-tooltip="Sugestão de presente"
+        ></button>
+
+        <!-- Botão 4: Presente em dinheiro -->
+        <button
+          class="btn-hotspot"
+          id="btn-dinheiro"
+          style="
+            left:   76.7500%;
+            top:    74.9000%;
+            width:  calc(112 / 1080 * 100%);
+            height: calc(112 / 3200 * 100%);
+          "
+          aria-label="Presente em dinheiro"
+          data-tooltip="Presente em dinheiro"
+        ></button>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal genérico (reutilizado por todos os botões) -->
+  <div class="modal-overlay" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+    <div class="modal-box">
+      <button class="modal-fechar" id="modal-fechar" aria-label="Fechar">&#x2715;</button>
+      <h2 id="modal-titulo"></h2>
+      <div id="modal-conteudo"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
