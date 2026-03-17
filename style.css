@@ -55,13 +55,22 @@ body {
   position: absolute;
   background: transparent;
   border: none;
-  border-radius: 50%; /* ajuste para 8px se os botões forem retangulares */
+  border-radius: 50%;
   cursor: pointer;
-  pointer-events: all; /* …mas cada botão sim */
-
-  /* Feedback visual sutil no hover */
+  pointer-events: all;
   transition: background 0.2s ease, transform 0.15s ease;
   outline: none;
+}
+
+/* Botões dentro de camadas hover ficam inativos quando a camada está fechada */
+.svg-hover-layer .btn-hotspot,
+.svg-hover-layer .btn-fechar-hover {
+  pointer-events: none;
+}
+
+.svg-hover-layer.visivel .btn-hotspot,
+.svg-hover-layer.visivel .btn-fechar-hover {
+  pointer-events: all;
 }
 
 .btn-hotspot:hover {
@@ -262,4 +271,13 @@ body {
 
 .btn-fechar-hover:active {
   transform: scale(0.95);
+}
+
+/* ─────────────────────────────────────────
+   Variações de formato dos hotspots
+───────────────────────────────────────── */
+
+/* Use esta classe em botões retangulares (ex: copiar pix, ver mapa) */
+.btn-hotspot.retangular {
+  border-radius: 8px; /* ou 0 se quiser canto totalmente reto */
 }
