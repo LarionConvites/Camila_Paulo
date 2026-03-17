@@ -75,10 +75,86 @@
         ></button>
 
       </div>
+
+      <!-- ── SVG hover: Local ───────────────────────────── -->
+      <div class="svg-hover-layer" id="hover-local">
+        <img src="local.svg" alt="Local da festa" class="svg-hover-img">
+        <button
+          class="btn-fechar-hover"
+          id="fechar-local"
+          style="
+            left:   44.6000%;
+            top:    60.6000%;
+            width:  11.3131%;
+            height: 3.8182%;
+          "
+          aria-label="Fechar"
+        ></button>
+
+        <!-- Botão: Ver no mapa -->
+        <button
+          class="btn-hotspot"
+          id="local-ver-mapa"
+          style="
+            left:   39.0%;
+            top:    84.5%;
+            width:  21.4815%;
+            height: 1.7500%;
+          "
+          aria-label="Ver no mapa"
+          data-tooltip="Ver no mapa"
+        ></button>
+      </div>
+
+      <!-- ── SVG hover: Presentes ──────────────────────── -->
+      <div class="svg-hover-layer" id="hover-presentes">
+        <img src="presentes.svg" alt="Sugestão de presente" class="svg-hover-img">
+        <button
+          class="btn-fechar-hover"
+          id="fechar-presentes"
+          style="
+            left:   44.6000%;
+            top:    60.6000%;
+            width:  11.3131%;
+            height: 3.8182%;
+          "
+          aria-label="Fechar"
+        ></button>
+      </div>
+
+      <!-- ── SVG hover: Pix ────────────────────────────── -->
+      <div class="svg-hover-layer" id="hover-pix">
+        <img src="pix.svg" alt="Presente em dinheiro" class="svg-hover-img">
+        <button
+          class="btn-fechar-hover"
+          id="fechar-pix"
+          style="
+            left:   44.6000%;
+            top:    60.6000%;
+            width:  11.3131%;
+            height: 3.8182%;
+          "
+          aria-label="Fechar"
+        ></button>
+        <!-- Botão: copiar pix -->
+        <button
+          class="btn-hotspot"
+          id="copiar"
+          style="
+            left:   39.0%;
+            top:    73.0%;
+            width:  21.4815%;
+            height: 1.7500%;
+          "
+          aria-label="Ver no mapa"
+          data-tooltip="Ver no mapa"
+        ></button>
+      </div>
+
     </div>
   </div>
 
-  <!-- Modal genérico (reutilizado por todos os botões) -->
+  <!-- Modal genérico — botão 2 (confirmar presença) -->
   <div class="modal-overlay" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
     <div class="modal-box">
       <button class="modal-fechar" id="modal-fechar" aria-label="Fechar">&#x2715;</button>
@@ -88,5 +164,8 @@
   </div>
 
   <script src="script.js"></script>
+  <script src="local.js"></script>
+  <script src="presentes.js"></script>
+  <script src="pix.js"></script>
 </body>
 </html>
