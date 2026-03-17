@@ -1,57 +1,71 @@
 // ─────────────────────────────────────────
 //  CONFIGURAÇÃO DOS BOTÕES
-//  Edite apenas este objeto para personalizar
-//  cada botão sem precisar mexer no resto do código.
+//  tipo 'hover-svg' → abre uma camada SVG
+//  tipo 'link'      → abre URL externa
+//  tipo 'modal'     → abre modal genérico
 // ─────────────────────────────────────────
-const mensagem = encodeURIComponent("Pode confirmar minha presença!");
+
 const botoes = {
 
   'btn-localizacao': {
-    titulo: 'Localização',
-    tipo: 'link',                         // 'link' | 'modal'
-    url: 'https://www.google.com/maps/place/Rua+Beco+dos+Soares,+3085+-+Vila+Augusta,+Viam%C3%A3o+-+RS,+94510-270/@-30.0671429,-51.0782731,17z/data=!3m1!4b1!4m5!3m4!1s0x95199e8ab8bec4b5:0xfc35152a8ef67a38!8m2!3d-30.0671476!4d-51.0756982?entry=ttu&g_ep=EgoyMDI2MDMxMS4wIKXMDSoASAFQAw%3D%3D',   // ← substitua pelo link do Google Maps
+    tipo: 'hover-svg',
+    alvo: 'hover-local',
   },
-
 
   'btn-confirmar': {
     titulo: 'Confirmar presença',
     tipo: 'link',
-    url: `https://wa.me/5551992906115?text=${mensagem}`,           // ← substitua pelo link do Google Forms
+    url: 'https://forms.gle/', // ← substitua pelo link do Google Forms
   },
 
   'btn-presente': {
-    titulo: 'Sugestões de presente',
-    tipo: 'modal',
-    html: `
-      <ul style="margin-top:10px; padding-left:18px;">
-        <li>Sugestão 1</li>
-        <li>Sugestão 2</li>
-        <li>Sugestão 3</li>
-      </ul>
-    `,
+    tipo: 'hover-svg',
+    alvo: 'hover-presentes',
   },
 
   'btn-dinheiro': {
-    titulo: 'Presente em dinheiro',
-    tipo: 'modal',
-    html: `
-      <p>Para presentear em dinheiro, utilize a chave PIX abaixo:</p>
-      <p style="margin-top:12px; font-size:17px; font-weight:700; letter-spacing:1px;">
-        chave@pix.com
-      </p>
-    `,
+    tipo: 'hover-svg',
+    alvo: 'hover-pix',
   },
 
 };
 
 // ─────────────────────────────────────────
-//  LÓGICA (não precisa editar abaixo)
+//  CONTROLE DAS CAMADAS SVG HOVER
 // ─────────────────────────────────────────
 
-const modal        = document.getElementById('modal');
-const modalTitulo  = document.getElementById('modal-titulo');
+function abrirHover(id) {
+  // Fecha qualquer hover aberto antes de abrir outro
+  document.querySelectorAll('.svg-hover-layer').forEach(el => {
+    el.classList.remove('visivel');
+  });
+  const layer = document.getElementById(id);
+  if (layer) layer.classList.add('visivel');
+}
+
+function fecharHover(id) {
+  const layer = document.getElementById(id);
+  if (layer) layer.classList.remove('visivel');
+}
+
+// Registra botões de fechar em cada camada hover
+[
+  { fechar: 'fechar-local',     layer: 'hover-local'     },
+  { fechar: 'fechar-presentes', layer: 'hover-presentes' },
+  { fechar: 'fechar-pix',       layer: 'hover-pix'       },
+].forEach(({ fechar, layer }) => {
+  const btn = document.getElementById(fechar);
+  if (btn) btn.addEventListener('click', () => fecharHover(layer));
+});
+
+// ─────────────────────────────────────────
+//  MODAL GENÉRICO (botão confirmar presença)
+// ─────────────────────────────────────────
+
+const modal         = document.getElementById('modal');
+const modalTitulo   = document.getElementById('modal-titulo');
 const modalConteudo = document.getElementById('modal-conteudo');
-const modalFechar  = document.getElementById('modal-fechar');
+const modalFechar   = document.getElementById('modal-fechar');
 
 function abrirModal(titulo, html) {
   modalTitulo.textContent = titulo;
@@ -65,29 +79,32 @@ function fecharModal() {
   document.body.style.overflow = '';
 }
 
-// Fechar ao clicar no X
 modalFechar.addEventListener('click', fecharModal);
+modal.addEventListener('click', (e) => { if (e.target === modal) fecharModal(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') fecharModal(); });
 
-// Fechar ao clicar fora da caixa
-modal.addEventListener('click', (e) => {
-  if (e.target === modal) fecharModal();
-});
+// ─────────────────────────────────────────
+//  REGISTRAR CLIQUES NOS BOTÕES PRINCIPAIS
+// ─────────────────────────────────────────
 
-// Fechar com ESC
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') fecharModal();
-});
-
-// Registrar clique em cada botão
 Object.entries(botoes).forEach(([id, config]) => {
   const btn = document.getElementById(id);
   if (!btn) return;
 
   btn.addEventListener('click', () => {
-    if (config.tipo === 'link') {
+    if (config.tipo === 'hover-svg') {
+      abrirHover(config.alvo);
+    } else if (config.tipo === 'link') {
       window.open(config.url, '_blank', 'noopener,noreferrer');
-    } else {
+    } else if (config.tipo === 'modal') {
       abrirModal(config.titulo, config.html);
     }
   });
 });
+
+// ─────────────────────────────────────────
+//  EXPÕE abrirHover / fecharHover globalmente
+//  para os scripts específicos de cada SVG
+// ─────────────────────────────────────────
+window.abrirHover  = abrirHover;
+window.fecharHover = fecharHover;
